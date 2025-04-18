@@ -4,22 +4,13 @@ This project is part of the Advanced Database course. It demonstrates how to bui
 
 📁 GitHub Repository: mongodb-project2-vu-cong-minh
 
-🚀 Getting Started
-1. Clone the Repository
-bash
-Copy
-Edit
+**🚀 Getting Started**
+**1. Clone the Repository**
 git clone https://github.com/minhvchp/mongodb-project2-vu-cong-minh.git
 cd mongodb-project2-vu-cong-minh
-2. Install Dependencies
-bash
-Copy
-Edit
-**npm install**
-3. Run the App
-bash
-Copy
-Edit
+**2. Install Dependencies**
+npm install
+**3. Run the App**
 npm start
 Then open your browser and go to http://localhost:3000.
 
