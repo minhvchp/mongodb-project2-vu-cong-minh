@@ -15,7 +15,7 @@ cd mongodb-project2-vu-cong-minh
 bash
 Copy
 Edit
-npm install
+**npm install**
 3. Run the App
 bash
 Copy
