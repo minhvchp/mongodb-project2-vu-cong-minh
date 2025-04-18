@@ -1,5 +1,6 @@
 🏫 Dormitory Management System
-This project is part of the Advanced Database course. It demonstrates how to build a Student Dormitory Management System using ReactJS and MongoDB.
+
+This project is part of the Advanced Database course. It demonstrates how to build a Student Dormitory Management System using ReactJS, Redis, Nodejs and MongoDB.
 
 📁 GitHub Repository: mongodb-project2-vu-cong-minh
 
