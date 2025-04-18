@@ -5,25 +5,33 @@ This project is part of the Advanced Database course. It demonstrates how to bui
 📁 GitHub Repository: mongodb-project2-vu-cong-minh
 
 **🚀 Getting Started**
+
 **1. Clone the Repository**
+
 git clone https://github.com/minhvchp/mongodb-project2-vu-cong-minh.git
+
 cd mongodb-project2-vu-cong-minh
+
 **2. Install Dependencies**
+
 npm install
+
 **3. Run the App**
+
 npm start
+
 Then open your browser and go to http://localhost:3000.
 
 📦 Available Scripts
 You can run the following commands in the project directory:
 
-npm start: Runs the app in development mode.
+**npm start**: Runs the app in development mode.
 
-npm test: Launches the test runner.
+**npm test**: Launches the test runner.
 
-npm run build: Builds the app for production.
+**npm run build**: Builds the app for production.
 
-npm run eject: Copies all configurations and dependencies to your project (not recommended unless needed).
+**npm run eject**: Copies all configurations and dependencies to your project (not recommended unless needed).
 
 📚 Learn More
 React documentation
