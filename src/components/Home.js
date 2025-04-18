@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Table,
-  Pagination,
-  Container,
-  Row,
-  Col,
-  Spinner,
-} from "react-bootstrap";
+import { Table, Pagination, Container, Row, Col, Spinner } from "react-bootstrap";
 
 const API_BASE_URL = "https://w7gcjj-3000.csb.app";
 
@@ -19,10 +12,10 @@ function Home() {
   const [revenue, setRevenue] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingRevenue, setLoadingRevenue] = useState(false);
-  const limit = 10;
+  const limit = 15;
   const navigate = useNavigate();
 
-  // Lấy danh sách sinh viên
+  // Get danh sách sinh viên
   useEffect(() => {
     const fetchStudents = async () => {
       setLoading(true);
@@ -41,13 +34,13 @@ function Home() {
     fetchStudents();
   }, [currentPage]);
 
-  // Lấy doanh thu dịch vụ
+  // Get doanh thu dịch vụ
   useEffect(() => {
     const fetchRevenue = async () => {
       setLoadingRevenue(true);
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/service-revenue/2024-01-01/2025-04-18`
+          `${API_BASE_URL}/service-revenue/2024-01-01/2025-04-30`
         );
         setRevenue(response.data);
       } catch (err) {
@@ -71,11 +64,19 @@ function Home() {
     navigate(`/student/${studentId}`);
   };
 
+  // Dan currency các dịch vụ
+  const serviceNames = ["Laundry", "Parking", "BikeRental", "Catering"];
+
   return (
     <Container className="mt-4">
       <Row>
-        <div className="col-8">
+        <Col className="px-3" md={6}>
           <h4 className="text-center">Danh sách sinh viên</h4>
+
+          <p className="text-danger">
+                * Click vào từng dòng để xem thông tin chi tiết từng sinh viên
+              </p>
+
           {loading ? (
             <div className="text-center">
               <Spinner animation="border" />
@@ -83,7 +84,7 @@ function Home() {
             </div>
           ) : (
             <>
-              <Table striped bordered hover>
+              <Table striped bordered hover style={{ fontSize: "14px" }}>
                 <thead>
                   <tr>
                     <th>Mã SV</th>
@@ -113,7 +114,6 @@ function Home() {
                   ))}
                 </tbody>
               </Table>
-              <p className="text-danger">* Click vào từng dòng để xem thông tin chi tiết từng sinh viên</p>
               
               <div
                 className="d-flex justify-content-center mt-3"
@@ -124,7 +124,6 @@ function Home() {
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
                   />
-
                   {currentPage > 3 && (
                     <>
                       <Pagination.Item onClick={() => handlePageChange(1)}>
@@ -133,7 +132,6 @@ function Home() {
                       <Pagination.Ellipsis disabled />
                     </>
                   )}
-
                   {[...Array(totalPages).keys()]
                     .filter((page) => Math.abs(page + 1 - currentPage) <= 2)
                     .map((page) => (
@@ -145,7 +143,6 @@ function Home() {
                         {page + 1}
                       </Pagination.Item>
                     ))}
-
                   {currentPage < totalPages - 2 && (
                     <>
                       <Pagination.Ellipsis disabled />
@@ -156,7 +153,6 @@ function Home() {
                       </Pagination.Item>
                     </>
                   )}
-
                   <Pagination.Next
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
@@ -165,33 +161,52 @@ function Home() {
               </div>
             </>
           )}
-        </div>
-        <div className="col-4">
-          <h4 className="text-center">Doanh thu dịch vụ tháng này</h4>
+        </Col>
+        <Col md={6}>
+          <h4 className="text-center">Doanh thu dịch vụ theo tháng</h4>
+
+          <p className="text-danger">
+                * Tổng doanh thu các dịch vụ theo từng tháng
+              </p>
+              
           {loadingRevenue ? (
             <div className="text-center">
               <Spinner animation="border" />
               <p>Loading...</p>
             </div>
           ) : (
-            <Table striped bordered hover>
+            <Table striped bordered hover style={{ fontSize: "14px" }}>
               <thead>
                 <tr>
-                  <th>Dịch vụ</th>
-                  <th>Doanh thu</th>
+                  <th className="text-center">Tháng/Dịch vụ</th>
+                  {serviceNames.map((service) => (
+                    <th className="text-center" key={service}>{service}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {revenue.map((item) => (
-                  <tr key={item.serviceName}>
-                    <td>{item.serviceName}</td>
-                    <td>{item.totalRevenue.toLocaleString("vi")} VND</td>
+                {revenue.map((monthData) => (
+                  <tr key={monthData.month}>
+                    <td className="text-center">{monthData.month}</td>
+                    {serviceNames.map((service) => {
+                      const serviceRevenue = monthData.services.find(
+                        (s) => s.serviceName === service
+                      );
+                      return (
+                        <td className="text-end" key={service}>
+                          {serviceRevenue
+                            ? serviceRevenue.totalRevenue.toLocaleString("vi")
+                            : 0}{" "}
+                          VND
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
               </tbody>
             </Table>
           )}
-        </div>
+        </Col>
       </Row>
     </Container>
   );
