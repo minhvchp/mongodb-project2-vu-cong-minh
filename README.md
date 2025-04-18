@@ -33,10 +33,3 @@ You can run the following commands in the project directory:
 
 **npm run eject**: Copies all configurations and dependencies to your project (not recommended unless needed).
 
-📚 Learn More
-React documentation
-
-MongoDB documentation
-
-Create React App guide
-
